@@ -21,14 +21,13 @@ MAPEAMENTO DE HARDWARE:
 CONSTANTES:
 ==============================================================================================================*/
 
-#define compensa_direito 0 //Valor somado a velocidade do motor direito
-#define compensa_esquerdo 0 //Valor somado a velocidade do motor esquerdo
-
-
 //Velocidades (valores para o pulso PWM: 0 - 255)
 #define veloc_Frente 80
 #define veloc_Reverso 80
 
+//Compensadores de velocidade, para caso o robô esteja com um lado mais rápido que outro
+#define compensa_direito 0 //Valor somado a velocidade do motor direito
+#define compensa_esquerdo 0 //Valor somado a velocidade do motor esquerdo
 
 /*
 ==============================================================================================================
