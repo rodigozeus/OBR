@@ -1,0 +1,6 @@
+Montar um circuito com dois leds em que eles se alternem, liga um, depois o outro.
+
+Montar um semáforo simples com leds coloridos, alternando entre eles.
+
+Preparar um detector de proximidade usando sensor ultrassom, de modo que acima de 30cm acenda o led verde e 
+acima de 50cm acenda o led vermelho.
