@@ -1,4 +1,4 @@
-_ Códigos escritos para aumentar a praticidade no teste de componentes de hardware do Robô. _
+_Códigos escritos para aumentar a praticidade no teste de componentes de hardware do Robô._
 
 # teste_cor:
 Testa os sensores de cor esquerdo e direito. Leia o cabeçalho do programa para mais informações.
