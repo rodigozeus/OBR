@@ -1,9 +1,15 @@
+/*
+Testa os sensores de cor esquerdo e direito
+Para diminuir a quantidade de portas usadas no Arduíno, os pinos s2 e s3 dos dois sensores foram unificados,
+então, s2 e s3 são o mesmo para o sensor direito e esquerdo, sendo necessário um cabo Y.
+*/
 
-//Pinos de conexao do modulo
-const int s2 = 10;
-const int s3 = 11;
-const int out_E = 9;
-const int out_D = 8;
+//Pinos de conexao dos modulos
+const int s2 = 10; //s2 direito e esquerdo
+const int s3 = 11; //s3 direito e esquerdo
+
+const int out_E = 9; //Out esquerdo
+const int out_D = 8; //Out direito
  
 
 //Variaveis cores
@@ -27,32 +33,9 @@ void setup()
 void loop()
 {
   //Detecta a cor
-  color();
+  ler_cor();
   
-  /*
-  //Mostra valores no serial monitor (esquerda)
-  Serial.print("Vermelho :");
-  Serial.print(red_E, DEC);
-  Serial.print(" Verde : ");
-  Serial.print(green_E, DEC);
-  Serial.print(" Azul : ");
-  Serial.print(blue_E, DEC);
-  Serial.println();
-  */
-  
-  /*
-  //Mostra valores no serial monitor (direita)
-  Serial.print("Vermelho :");
-  Serial.print(red_D, DEC);
-  Serial.print(" Verde : ");
-  Serial.print(green_D, DEC);
-  Serial.print(" Azul : ");
-  Serial.print(blue_D, DEC);
-  Serial.println();
-  */
-  
- 
-  //Verifica se a cor verde foi detectada
+  //Verifica se a cor verde foi detectada e informa qual o lado ou se foi em ambos.
   if (green_D < red_D and green_D < blue_D and green_E < red_E and green_E < blue_E)
   {
     Serial.println("Verde em ambos!");
@@ -67,26 +50,28 @@ void loop()
   {
     Serial.println("Verde na esquerda!");
   }
+ 
   else {
-    Serial.println("Nada!");
+    Serial.println("Verde não detectado");
   }
  
 }
  
-void color()
+void ler_cor()
 {
   //Rotina que le o valor das cores
+ 
   digitalWrite(s2, LOW);
   digitalWrite(s3, LOW);
-  //count OUT, pRed, RED
+  //Testa a cor vermelha nos dois sensores
   red_E = pulseIn(out_E, digitalRead(out_E) == HIGH ? LOW : HIGH);
   red_D = pulseIn(out_D, digitalRead(out_D) == HIGH ? LOW : HIGH);
   digitalWrite(s3, HIGH);
-  //count OUT, pBLUE, BLUE
+  //Testa a cor azul nos dois sensores
   blue_E = pulseIn(out_E, digitalRead(out_E) == HIGH ? LOW : HIGH);
   blue_D = pulseIn(out_D, digitalRead(out_D) == HIGH ? LOW : HIGH);
   digitalWrite(s2, HIGH);
-  //count OUT, pGreen, GREEN
+  //Testa a cor verde nos dois sensores
   green_E = pulseIn(out_E, digitalRead(out_E) == HIGH ? LOW : HIGH);
   green_D = pulseIn(out_D, digitalRead(out_D) == HIGH ? LOW : HIGH);
 }
