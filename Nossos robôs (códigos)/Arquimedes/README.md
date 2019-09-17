@@ -1,7 +1,6 @@
 # Arquimedes
 
-Trata-se de um protótipo que se baseia na cooperação entre dois controladores Arduíno dividindo tarefas.
-Os dois arduínos se comunicam através da biblioteca Softwareserial.
+Trata-se de um protótipo que se baseia na cooperação entre dois controladores Arduíno dividindo tarefas. Os dois arduínos se comunicam através da biblioteca Softwareserial.
 
 Arduíno 1:
 
@@ -14,9 +13,7 @@ Lida com o giroscopio, com os sensores de distância (ultrassônicos) e com o co
 
 # Estágio atual
 
-Atualmente o protótipo já é totalmente capaz de seguir linha, inclusive em curvas com ângulos bem fechados, supera gaps na linha com facilidade,
-faz isso com muita precisão e confiabilidade. Também é capaz de desviar de obstáculos usando o botão em sua dianteira para detectá-lo e o giroscopio para
-ajustar o ângulo das curvas e andar reto mesmo sem linha.
+Atualmente o protótipo já é totalmente capaz de seguir linha, inclusive em curvas com ângulos bem fechados, supera gaps na linha com facilidade, faz isso com muita precisão e confiabilidade. Também é capaz de desviar de obstáculos usando o botão em sua dianteira para detectá-lo e o giroscopio para ajustar o ângulo das curvas e andar reto mesmo sem linha.
 
 
 # O que precisa ser implementado/melhorado:
