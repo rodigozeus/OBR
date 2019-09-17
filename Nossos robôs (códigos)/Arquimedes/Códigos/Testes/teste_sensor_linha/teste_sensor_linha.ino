@@ -1,6 +1,6 @@
 /*
  
-  Código criado apenas para testar leituras analógicas de sensores de linha (reflexividade baseados em infravermelho)
+  Código criado para testar leituras analógicas de sensores de linha (reflexividade baseados em infravermelho)
   Especificamente para 5 sensores posicionados em linha.
  
  */
