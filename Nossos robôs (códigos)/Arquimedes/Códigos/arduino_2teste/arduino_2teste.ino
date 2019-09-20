@@ -142,11 +142,10 @@ void tras_reto(int tempo) {
 void desvia() {
     //mpu6050.calcGyroOffsets(true);
     tras_reto(500);
-    esquerda_giro(90);
+    esquerda_giro(80);
     frente_reto(1500);
-    direita_giro(85);
+    direita_giro(90);
     frente_reto(3200);
     direita_giro(70);
-    frente_reto(1500);
-    esquerda_giro(70);
+
 }

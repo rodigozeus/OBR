@@ -192,7 +192,7 @@ if(analogRead(sensor_extrema_direita) > corteED){
     //Anda pra frente até que o sensor deixe de perceber a linha
     while(true) {
        obstaculo();
-       if (analogRead(sensor_direito)<corteD) {
+       if (analogRead(sensor_extrema_direita)<corteD) {
           break;
           }
           else {
