@@ -1,7 +1,7 @@
 
 #include <VarSpeedServo.h> 
 
-VarSpeedServo servo1; //nome do servo, igual na outra
+VarSpeedServo servo1; //nome do servo, igual na outra biblioteca
 
 
 
