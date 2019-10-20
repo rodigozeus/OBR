@@ -108,16 +108,16 @@ void loop() {
       veloc_Reverso = 160;
     }
     if (letra == '7') {
-      veloc_Frente = 180;
-      veloc_Reverso = 180;
+      veloc_Frente = 255;
+      veloc_Reverso = 255;
     }
     if (letra == '8') {
-      veloc_Frente = 200;
-      veloc_Reverso = 200;
+      veloc_Frente = 255;
+      veloc_Reverso = 255;
     }
     if (letra == '9') {
-      veloc_Frente = 230;
-      veloc_Reverso = 230;
+      veloc_Frente = 255;
+      veloc_Reverso = 255;
     }
     if (letra == 'q') {
       veloc_Frente = 255;

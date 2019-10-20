@@ -5,7 +5,7 @@ SUMOBOT-SEXTA_FEIRA
 BIBLIOTECAS:
 ====================================================================================== */
 #include <HCSR04.h>
-
+   
 /*
 ======================================================================================
 MAPEAMENTO DE HARDWARE:
@@ -34,7 +34,7 @@ CONSTANTES:
 ====================================================================================== */
 //Velocidade Compensa
 #define Compensa_Direito 0
-#define Compensa_Esquerdo 50
+#define Compensa_Esquerdo 0
 
 //Delay de Curva
 #define Tempo_Curva 0
@@ -44,17 +44,14 @@ CONSTANTES:
 #define Velocidade_Reverso 150
 
 //Corte dos Sensor de Linha
-#define Corte_Direito 180
-#define Corte_Esquerdo 180
-#define Corte_Meio 250
+#define Corte_Direito 200
+#define Corte_Esquerdo 200
+#define Corte_Meio 0
 
 /*
 ======================================================================================
 VARIÁVEIS:
 ====================================================================================== */
-//Sensor de Linha
-int sensor_esquerdo;
-int sensor_direito;
 int distancia;
 
 /*
@@ -75,32 +72,25 @@ pinMode(Vel_Esquerdo,OUTPUT);
 pinMode(Extrema_Direita,INPUT);
 pinMode(Extrema_Esquerda,INPUT);
 
-Serial.begin(9600);   
+Serial.begin(9600);
 
-distancia = distanceSensor.measureDistanceCm();
-if (distancia > 10) { 
-frente(170); //dentro do parênteses precisa colocar a velocidade desejada de 0 a 255
-delay(1700);
-para();
-delay(1000);
-girar_direita();
-delay(1000); }
-if (distancia > 10) {
-frente(255); }
 }
 
 /*
 ======================================================================================
 PROGRAMAÇÃO:
 ====================================================================================== */
-void loop() {
-
+void loop() {  
+  
 distancia = distanceSensor.measureDistanceCm();
-if (distancia < 10) {
-frente(255); } //dentro do parênteses precisa colocar a velocidade desejada de 0 a 255 
-if (distancia > 10) {
-girar_direita();
-}}
+//dentro do parênteses precisa colocar a velocidade desejada de 0 a 25
+  if (distancia < 30 and distancia >= 0) {
+while(true){
+frente(255);
+} 
+}
+}
+
 
 /*
 ======================================================================================

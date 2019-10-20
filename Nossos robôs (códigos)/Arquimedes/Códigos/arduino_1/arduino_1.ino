@@ -57,11 +57,11 @@ CONSTANTES:
 #define veloc_Reverso 100
 
 //cortes dos sensores de linha
-#define corteD 110
-#define corteE 100
-#define corte_meio 100
-#define corteED 330
-#define corteEE 100
+#define corteD 200
+#define corteE 150
+#define corte_meio 150
+#define corteED 550
+#define corteEE 150
 
 
 /*
