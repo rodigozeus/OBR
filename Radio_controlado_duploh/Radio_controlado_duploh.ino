@@ -8,6 +8,7 @@ MAPEAMENTO DE HARDWARE:
 #define acelerador A4
 
 AF_DCMotor motor_esquerdo(4);
+AF_DCMotor motor_esquerdo2(3);
 AF_DCMotor motor_direito(1);
 
 Servo helice;
@@ -64,7 +65,7 @@ if (abs(leitura_acelerador-centro_acelerador)<10) {
 }
 else if (leitura_acelerador>centro_acelerador) {
   frente(leitura_acelerador);
-  //helice.write(leitura_acelerador-120);
+  helice.write(leitura_acelerador-160);
 }
 else if (leitura_acelerador<centro_acelerador) {
   tras(leitura_acelerador);
@@ -89,20 +90,25 @@ void gira_parado(int velocidade) {
       Serial.print("Esquerda_tras e Direita_frente: ");
       Serial.println(abs(velocidade));
       motor_esquerdo.setSpeed(abs(velocidade));
+      motor_esquerdo2.setSpeed(abs(velocidade));
       motor_direito.setSpeed(abs(velocidade));
       motor_esquerdo.run(BACKWARD);
+      motor_esquerdo2.run(BACKWARD);
       motor_direito.run(FORWARD);
   }
   else if (velocidade > (centro_curva+30)) {
       Serial.print("Esquerda_frente e Direita_tras: ");
       Serial.println(abs(velocidade));
       motor_esquerdo.setSpeed(abs(velocidade));
+      motor_esquerdo2.setSpeed(abs(velocidade));
       motor_direito.setSpeed(abs(velocidade));
       motor_esquerdo.run(FORWARD);
+      motor_esquerdo2.run(FORWARD);
       motor_direito.run(BACKWARD);
   }
   else {
       motor_esquerdo.run(RELEASE);
+      motor_esquerdo2.run(RELEASE);
       motor_direito.run(RELEASE);
   }
 }
@@ -111,12 +117,15 @@ void frente(int velocidade) {
   if (leitura_curva < (centro_curva-30)) {
       if (leitura_curva<=velocidade) {
         motor_esquerdo.setSpeed(0);
+        motor_esquerdo2.setSpeed(0);
       }
       else {
         motor_esquerdo.setSpeed(abs(velocidade)-abs(leitura_curva));
+        motor_esquerdo2.setSpeed(abs(velocidade)-abs(leitura_curva));
       }
       motor_direito.setSpeed(abs(velocidade));
       motor_esquerdo.run(FORWARD);
+      motor_esquerdo2.run(FORWARD);
       motor_direito.run(FORWARD);
   }
   else if (leitura_curva > (centro_curva+30)) {
@@ -127,13 +136,17 @@ void frente(int velocidade) {
         motor_direito.setSpeed(abs(velocidade)-abs(leitura_curva));
       }
       motor_esquerdo.setSpeed(abs(velocidade));
+      motor_esquerdo2.setSpeed(abs(velocidade));
       motor_esquerdo.run(FORWARD);
+      motor_esquerdo2.run(FORWARD);
       motor_direito.run(FORWARD);
   }
   else {
       motor_esquerdo.setSpeed(abs(velocidade));
+      motor_esquerdo2.setSpeed(abs(velocidade));
       motor_direito.setSpeed(abs(velocidade));
       motor_esquerdo.run(FORWARD);
+      motor_esquerdo2.run(FORWARD);
       motor_direito.run(FORWARD);
   }
 }
@@ -142,12 +155,15 @@ void tras(int velocidade) {
   if (leitura_curva < (centro_curva-30)) {
       if (leitura_curva<=velocidade) {
         motor_esquerdo.setSpeed(0);
+        motor_esquerdo2.setSpeed(0);
       }
       else {
         motor_esquerdo.setSpeed(abs(velocidade)-abs(leitura_curva));
+        motor_esquerdo2.setSpeed(abs(velocidade)-abs(leitura_curva));
       }
       motor_direito.setSpeed(abs(velocidade));
       motor_esquerdo.run(BACKWARD);
+      motor_esquerdo2.run(BACKWARD);
       motor_direito.run(BACKWARD);
   }
   else if (leitura_curva > (centro_curva+30)) {
@@ -158,13 +174,17 @@ void tras(int velocidade) {
         motor_direito.setSpeed(abs(velocidade)-abs(leitura_curva));
       }
       motor_esquerdo.setSpeed(abs(velocidade));
+      motor_esquerdo2.setSpeed(abs(velocidade));
       motor_esquerdo.run(BACKWARD);
+      motor_esquerdo2.run(BACKWARD);
       motor_direito.run(BACKWARD);
   }
   else {
       motor_esquerdo.setSpeed(abs(velocidade));
+      motor_esquerdo2.setSpeed(abs(velocidade));
       motor_direito.setSpeed(abs(velocidade));
       motor_esquerdo.run(BACKWARD);
+      motor_esquerdo2.run(BACKWARD);
       motor_direito.run(BACKWARD);
   }
 }

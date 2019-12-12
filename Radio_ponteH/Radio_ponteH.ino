@@ -1,16 +1,20 @@
-#include <AFMotor.h>
-#include <Servo.h> 
 /*
 ==============================================================================================================
 MAPEAMENTO DE HARDWARE:
 ==============================================================================================================*/
+//Receptor
 #define curva A5
 #define acelerador A4
 
-AF_DCMotor motor_esquerdo(4);
-AF_DCMotor motor_direito(1);
+//Motor do lado direito
+#define direito 13                                                                                             
+#define direito_Invertido 12
+#define vel_direito 11 //Precisa ser PWM
 
-Servo helice;
+//Motor do lado esquerdo
+#define esquerdo 8
+#define esquerdo_Invertido 3
+#define vel_esquerdo 9 //Precisa ser PWM
 
 /*
 ==============================================================================================================
@@ -33,14 +37,16 @@ long leitura_acelerador = 0;
 CONFIGURAÇÃO:
 ==============================================================================================================*/
 void setup() {
+  //Pinos do receptor como entrada
   pinMode(A0, INPUT);
   pinMode(A1, INPUT);
-  motor_esquerdo.run(RELEASE);
-  motor_direito.run(RELEASE);
-  Serial.begin(9600);
-  helice.attach(9);
-  helice.write(20);
-  delay(2000);
+  //Pinos dos motores como saída
+  pinMode(direito, OUTPUT);
+  pinMode(direito_Invertido, OUTPUT);
+  pinMode(esquerdo, OUTPUT);
+  pinMode(esquerdo_Invertido, OUTPUT);
+  pinMode(vel_direito, OUTPUT);
+  pinMode(vel_esquerdo, OUTPUT);
 }
 
 
@@ -60,15 +66,15 @@ imprime_valores();
 //acelerador solto
 if (abs(leitura_acelerador-centro_acelerador)<10) {
   gira_parado(leitura_curva/fator_giro);
-  helice.write(20);
 }
+//Ir pra frente
 else if (leitura_acelerador>centro_acelerador) {
-  frente(leitura_acelerador);
-  //helice.write(leitura_acelerador-120);
+  acelerar(leitura_acelerador);
 }
+
+//ir pra tras
 else if (leitura_acelerador<centro_acelerador) {
-  tras(leitura_acelerador);
-  helice.write(20);
+  voltar(leitura_acelerador);
 }
 }
 
@@ -86,35 +92,24 @@ void imprime_valores() {
 
 void gira_parado(int velocidade) {
   if (velocidade < (centro_curva-30)) {
-      Serial.print("Esquerda_tras e Direita_frente: ");
-      Serial.println(abs(velocidade));
-      motor_esquerdo.setSpeed(abs(velocidade));
-      motor_direito.setSpeed(abs(velocidade));
-      motor_esquerdo.run(BACKWARD);
-      motor_direito.run(FORWARD);
+      girar_esquerda(abs(velocidade));
   }
   else if (velocidade > (centro_curva+30)) {
-      Serial.print("Esquerda_frente e Direita_tras: ");
-      Serial.println(abs(velocidade));
-      motor_esquerdo.setSpeed(abs(velocidade));
-      motor_direito.setSpeed(abs(velocidade));
-      motor_esquerdo.run(FORWARD);
-      motor_direito.run(BACKWARD);
+      girar_direita(abs(velocidade))
   }
   else {
-      motor_esquerdo.run(RELEASE);
-      motor_direito.run(RELEASE);
+      para();
   }
 }
 
-void frente(int velocidade) {
+void acelerar(int velocidade) {
   if (leitura_curva < (centro_curva-30)) {
       if (leitura_curva<=velocidade) {
         motor_esquerdo.setSpeed(0);
-      }
+             }
       else {
         motor_esquerdo.setSpeed(abs(velocidade)-abs(leitura_curva));
-      }
+              }
       motor_direito.setSpeed(abs(velocidade));
       motor_esquerdo.run(FORWARD);
       motor_direito.run(FORWARD);
@@ -138,13 +133,14 @@ void frente(int velocidade) {
   }
 }
 
-void tras(int velocidade) {
+void voltar(int velocidade) {
   if (leitura_curva < (centro_curva-30)) {
       if (leitura_curva<=velocidade) {
         motor_esquerdo.setSpeed(0);
       }
       else {
         motor_esquerdo.setSpeed(abs(velocidade)-abs(leitura_curva));
+        
       }
       motor_direito.setSpeed(abs(velocidade));
       motor_esquerdo.run(BACKWARD);
@@ -168,3 +164,117 @@ void tras(int velocidade) {
       motor_direito.run(BACKWARD);
   }
 }
+
+
+
+
+void frente(int velocidade){
+
+     digitalWrite(direito_Invertido, LOW);
+     digitalWrite(esquerdo_Invertido, LOW);
+     
+     analogWrite(vel_direito, velocidade);
+     analogWrite(vel_esquerdo, velocidade);
+    
+     digitalWrite(direito, HIGH);
+     digitalWrite(esquerdo, HIGH);
+ 
+}
+
+void tras(int velocidade){
+
+     digitalWrite(direito, LOW);
+     digitalWrite(esquerdo, LOW);
+    
+     analogWrite(vel_direito, velocidade);
+     analogWrite(vel_esquerdo, velocidade);
+    
+     digitalWrite(direito_Invertido, HIGH);
+     digitalWrite(esquerdo_Invertido, HIGH);
+ 
+}
+
+
+void para(){
+
+     digitalWrite(direito_Invertido, LOW);
+     digitalWrite(esquerdo_Invertido, LOW);
+     
+     analogWrite(vel_direito, 0);
+     analogWrite(vel_esquerdo, 0);
+    
+     digitalWrite(direito, LOW);
+     digitalWrite(esquerdo, LOW);
+
+}
+
+void direita(int velocidade){
+
+     digitalWrite(direito_Invertido, LOW);
+     digitalWrite(esquerdo_Invertido, LOW);
+     
+     analogWrite(vel_direito, velocidade-abs(leitura_curva));
+     analogWrite(vel_esquerdo, velocidade);
+    
+     digitalWrite(direito, HIGH);
+     digitalWrite(esquerdo, HIGH);
+     }
+
+void esquerda(int velocidade){
+
+     digitalWrite(direito_Invertido, LOW);
+     digitalWrite(esquerdo_Invertido, LOW);
+     
+     analogWrite(vel_direito, velocidade);
+     analogWrite(vel_esquerdo, velocidade-abs(leitura_curva));
+    
+     digitalWrite(direito, HIGH);
+     digitalWrite(esquerdo, HIGH);
+     }
+
+void girar_direita(int velocidade){
+
+     digitalWrite(direito, LOW);
+     digitalWrite(esquerdo_Invertido, LOW);
+     
+     analogWrite(vel_direito, velocidade);
+     analogWrite(vel_esquerdo, velocidade);
+    
+     digitalWrite(direito_Invertido, HIGH);
+     digitalWrite(esquerdo, HIGH);
+     }
+
+void girar_esquerda(int velocidade){
+    
+     digitalWrite(direito_Invertido, LOW);
+     digitalWrite(esquerdo, LOW);  
+     
+     analogWrite(vel_direito, velocidade);
+     analogWrite(vel_esquerdo, velocidade);
+    
+     digitalWrite(direito, HIGH);
+     digitalWrite(esquerdo_Invertido, HIGH);
+     }
+
+void tras_direita(int velocidade){
+
+     digitalWrite(direito, LOW);
+     digitalWrite(esquerdo, LOW);
+    
+     analogWrite(vel_direito, velocidade);
+     analogWrite(vel_esquerdo, velocidade-abs(leitura_curva));
+    
+     digitalWrite(direito_Invertido, HIGH);
+     digitalWrite(esquerdo_Invertido, HIGH);
+     }
+
+void tras_esquerda(int velocidade){
+     digitalWrite(direito, LOW);
+     digitalWrite(esquerdo, LOW);
+    
+     analogWrite(vel_direito, velocidade-abs(leitura_curva));
+     analogWrite(vel_esquerdo, velocidade);
+    
+     digitalWrite(direito_Invertido, HIGH);
+     digitalWrite(esquerdo_Invertido, HIGH);
+     }
