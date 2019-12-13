@@ -1,13 +1,13 @@
 /*
  * Olá Daniel,
- * Abaixo segue um esboço de código para controlar o _________
+ * Abaixo segue um esboço de código para controlar o Blue
  * 
  * Lhe proponho uma serie de desafios:
  *    1 - Fazer com que o robô gire tanto pra direita quanto pra esquerda
  *    2 - Construir uma pista de linha com curvas arredondadas (baixa angulação)
- *    3 - Instalar dois sensores de linha no ________
+ *    3 - Instalar dois sensores de linha no Blue
  *    4 - Realizar testes com os sensores de linha e definir os valores de corte
- *    5 - Tornar o _________ capaz de seguir a linha.
+ *    5 - Tornar o Blue capaz de seguir a linha.
  *    
  * Não são desafios fáceis. (não mesmo rsrs)
  * Mas, tenho certeza de que você consegue!!! :)
@@ -38,8 +38,8 @@ CONSTANTES e VARIÁVEIS:
 CONFIGURAÇÃO:
 ==============================================================================================================*/
 void setup() {
-  
-  //nada por enquanto
+
+esperar_botao();
     
 }
 
@@ -100,4 +100,11 @@ void para(){
   motor_esquerdo.run(RELEASE);
   motor_direito.run(RELEASE);
   
+}
+
+void esperar_botao() {
+  pinMode(10, INPUT_PULLUP);
+  while (true) {
+    if (!digitalRead(10)) {break;}
+  }
 }
