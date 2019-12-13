@@ -1,5 +1,5 @@
 /*
- * Olá Maria,
+ * Olá Daniel,
  * Abaixo segue um esboço de código para controlar o _________
  * 
  * Lhe proponho uma serie de desafios:
@@ -23,8 +23,8 @@
 MAPEAMENTO DE HARDWARE:
 ==============================================================================================================*/
 
-AF_DCMotor motor_esquerdo(1); //motor 1
-AF_DCMotor motor_direito(4);  //motor 4
+AF_DCMotor motor_esquerdo(4); //motor 1
+AF_DCMotor motor_direito(3);  //motor 4
 
 /*
 ==============================================================================================================
@@ -38,8 +38,8 @@ CONSTANTES e VARIÁVEIS:
 CONFIGURAÇÃO:
 ==============================================================================================================*/
 void setup() {
-
-espera_botao();
+  
+  //nada por enquanto
     
 }
 
@@ -100,11 +100,4 @@ void para(){
   motor_esquerdo.run(RELEASE);
   motor_direito.run(RELEASE);
   
-}
-
-void espera_botao() {
-  pinMode(10, INPUT_PULLUP);
-  while (true) {
-    if (!digitalRead(10)) {break;}
-  }
 }
