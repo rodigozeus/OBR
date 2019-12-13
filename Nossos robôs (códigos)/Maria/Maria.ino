@@ -39,7 +39,7 @@ CONFIGURAÇÃO:
 ==============================================================================================================*/
 void setup() {
 
-espera_botao();
+esperar_botao();
     
 }
 
@@ -102,7 +102,7 @@ void para(){
   
 }
 
-void espera_botao() {
+void esperar_botao() {
   pinMode(10, INPUT_PULLUP);
   while (true) {
     if (!digitalRead(10)) {break;}
