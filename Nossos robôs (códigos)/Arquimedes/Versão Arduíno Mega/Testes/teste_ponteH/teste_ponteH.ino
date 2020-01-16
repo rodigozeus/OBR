@@ -6,14 +6,14 @@
 MAPEAMENTO DE HARDWARE:
 ==============================================================================================================*/
 //Motor do lado direito
-#define direito 8                                                                                                 
-#define direito_Invertido 9
-#define vel_direito 5 //Precisa ser PWM
+#define direito 5                                                                                                 
+#define direito_Invertido 7
+#define vel_direito 6 //Precisa ser PWM
 
 //Motor do lado esquerdo
-#define esquerdo 10
-#define esquerdo_Invertido 11
-#define vel_esquerdo 6 //Precisa ser PWM
+#define esquerdo 4
+#define esquerdo_Invertido 2
+#define vel_esquerdo 3 //Precisa ser PWM
 
 
 /*
@@ -22,8 +22,8 @@ CONSTANTES:
 ==============================================================================================================*/
 
 //Velocidades (valores para o pulso PWM: 0 - 255)
-#define veloc_Frente 255
-#define veloc_Reverso 255
+#define veloc_Frente 80
+#define veloc_Reverso 80
 
 //Compensadores de velocidade, para caso o robô esteja com um lado mais rápido que outro
 #define compensa_direito 0 //Valor somado a velocidade do motor direito
@@ -56,18 +56,20 @@ void loop() {
 //anda pra frente, anda pra tras, gira pra direita, depois gira esquerda, faz cada operação por 5 segundos e para.
 
 frente();
-delay(3000);
+delay(5000);
 
 tras();
-delay(3000);
+delay(5000);
 
 girar_direita();
-delay(3000);
+delay(5000);
 
 girar_esquerda();
-delay(3000);
+delay(5000);
 
-
+while(true) {
+  para();
+}
 
 }
 
